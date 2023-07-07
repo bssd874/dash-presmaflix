@@ -1,9 +1,8 @@
 {
-  "name": "material-kit-react",
+  "name": "presmaflix-dashboard",
   "version": "3.0.0",
-  "author": "Devias",
+  "author": "Boni",
   "licence": "MIT",
-  "homepage": "https://devias.io",
   "private": false,
   "scripts": {
     "dev": "next",

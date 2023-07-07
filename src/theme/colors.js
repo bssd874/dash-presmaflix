@@ -24,12 +24,21 @@ export const neutral = {
   900: '#111927'
 };
 
+// export const indigo = withAlphas({
+//   lightest: '#F5F7FF',
+//   light: '#EBEEFE',
+//   main: '#6366F1',
+//   dark: '#4338CA',
+//   darkest: '#312E81',
+//   contrastText: '#FFFFFF'
+// });
+
 export const indigo = withAlphas({
-  lightest: '#F5F7FF',
-  light: '#EBEEFE',
-  main: '#6366F1',
-  dark: '#4338CA',
-  darkest: '#312E81',
+  lightest: '#FFEBEE',
+  light: '#FFCDD2',
+  main: '#E50914', // Warna merah Netflix
+  dark: '#B71C1C',
+  darkest: '#7F0C10',
   contrastText: '#FFFFFF'
 });
 

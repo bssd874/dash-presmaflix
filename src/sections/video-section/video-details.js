@@ -97,7 +97,6 @@ export const AccountProfileDetails = () => {
               <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
-                  multiline
                   label="Durasi"
                   name="duration"
                   onChange={handleChange}

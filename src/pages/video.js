@@ -21,8 +21,11 @@ const Page = () => (
             <Typography variant="h4">Insert New Video</Typography>
           </div>
           <div>
-            <Grid container spacing={3}>
-              <Grid xs={12} md={12} lg={12}>
+            <Grid container
+              spacing={3}>
+              <Grid xs={12}
+                md={12}
+                lg={12}>
                 <AccountProfileDetails />
               </Grid>
             </Grid>

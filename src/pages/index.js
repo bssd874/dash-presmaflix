@@ -6,7 +6,7 @@ import { AccountProfileDetails } from "src/sections/content-section/content-deta
 const Page = () => (
   <>
     <Head>
-      <title>Form Input Content | Devias Kit</title>
+      <title>Form Input Content | Presmaflix</title>
     </Head>
     <Box
       component="main"
@@ -21,7 +21,8 @@ const Page = () => (
             <Typography variant="h4">Insert New Content</Typography>
           </div>
           <div>
-            <Grid container spacing={3}>
+            <Grid container
+              spacing={3}>
               {/* <Grid
                 xs={12}
                 md={6}
@@ -29,7 +30,10 @@ const Page = () => (
               >
                 <AccountProfile />
               </Grid> */}
-              <Grid xs={12} md={12} lg={12}>
+              <Grid
+                xs={12}
+                md={12}
+                lg={12}>
                 <AccountProfileDetails />
               </Grid>
             </Grid>

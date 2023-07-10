@@ -10,8 +10,8 @@ import {
   TextField,
   Unstable_Grid2 as Grid,
 } from "@mui/material";
-import { useState,useEffect } from 'react';
-import {collection,getDocs,addDoc,updateDoc,doc,deleteDoc,serverTimestamp} from "firebase/firestore";
+import { useState, useEffect } from 'react';
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "src/config/firestore";
 
 
@@ -32,21 +32,21 @@ const type = [
 
 
 
-export const AccountProfileDetails = ({data,setData,getData}) => {
+export const AccountProfileDetails = ({ data, setData, getData }) => {
 
-  
 
-  const contentsCollectionRef = collection(db,"contents");
-  const videosCollectionRef = collection(db,"videos");
-  
-  const[contentId,setContentId] = useState('');
-  const[description,setDescription] = useState('');
-  const[duration,setDuration] = useState('');
-  const[thumbnailUrl,setThumbnailUrl] = useState('');
-  const[title,setTitle] = useState('');
-  const[type,setType] = useState('');
-  const[videoUrl,setVideoUrl] = useState('');
-  const [Konten,setContents] = useState([]);
+
+  const contentsCollectionRef = collection(db, "contents");
+  const videosCollectionRef = collection(db, "videos");
+
+  const [contentId, setContentId] = useState('');
+  const [description, setDescription] = useState('');
+  const [duration, setDuration] = useState('');
+  const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const [title, setTitle] = useState('');
+  const [type, setType] = useState('');
+  const [videoUrl, setVideoUrl] = useState('');
+  const [Konten, setContents] = useState([]);
 
   const handleChange = (e) => {
     /* const id = e.target.id;
@@ -57,15 +57,15 @@ export const AccountProfileDetails = ({data,setData,getData}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const newData = {
-      contentId,
-      description,
-      duration,
-      thumbnailUrl,
-      title,
-      type,
-      videoUrl
+      "contentId": contentId,
+      "description": description,
+      "duration": duration,
+      "thumbnailUrl": thumbnailUrl,
+      "title": title,
+      "type": type,
+      "videoUrl": videoUrl
     }
 
     //data.push(newData);
@@ -78,7 +78,7 @@ export const AccountProfileDetails = ({data,setData,getData}) => {
     } catch (err) {
       console.log(err);
     }
-    
+
 
     //setData(data);
     //getData()
@@ -94,26 +94,31 @@ export const AccountProfileDetails = ({data,setData,getData}) => {
     } */
   };
 
-  useEffect(()=>{
+  useEffect(() => {
 
     const getContents = async () => {
       const data = await getDocs(contentsCollectionRef);
-      setContents(data.docs.map((doc) => ({...doc.data(),id: doc.id})));
+      setContents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     }
     getContents();
 
-  },[])
+  }, [])
 
   return (
-    <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+    <form autoComplete="off"
+      noValidate
+      onSubmit={handleSubmit}>
       <Card>
-        <CardHeader subheader="The information can be edited" title="Video Details" />
+        <CardHeader subheader="The information can be edited"
+          title="Video Details" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
-            <Grid container spacing={3}>
-              <Grid xs={12} md={6}>
+            <Grid container
+              spacing={3}>
+              <Grid xs={12}
+                md={6}>
                 <TextField
-                  id = {"contentId" && "title"}
+                  id={"contentId" && "title"}
                   fullWidth
                   label="Pilih Konten"
                   name="contentId && title"
@@ -122,18 +127,20 @@ export const AccountProfileDetails = ({data,setData,getData}) => {
                   required
                   select
                   helperText="Pastikan nama konten telah tersedia"
-                  SelectProps={{ native: false  }}
+                  SelectProps={{ native: false }}
                 >
                   {Konten.map((content) => (
-                    <option key={content.id} value={content.title}>
+                    <option key={content.id}
+                      value={content.title}>
                       {content.title}
                     </option>
                   ))}
                 </TextField>
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid xs={12}
+                md={6}>
                 <TextField
-                  id = "type"
+                  id="type"
                   fullWidth
                   helperText='Setiap konten harus memiliki tipe "full-length"'
                   label="Tipe"
@@ -145,7 +152,7 @@ export const AccountProfileDetails = ({data,setData,getData}) => {
               </Grid>
               <Grid xs={12} md={6}>
                 <TextField
-                  id = "thumbnailUrl"
+                  id="thumbnailUrl"
                   fullWidth
                   label="Thumbnail"
                   name="videoThumbnail"
@@ -157,7 +164,7 @@ export const AccountProfileDetails = ({data,setData,getData}) => {
               </Grid>
               <Grid xs={12} md={6}>
                 <TextField
-                  id = "videoUrl"
+                  id="videoUrl"
                   fullWidth
                   label="Video"
                   name="videoUrl"
@@ -170,7 +177,7 @@ export const AccountProfileDetails = ({data,setData,getData}) => {
 
               <Grid xs={12} md={6}>
                 <TextField
-                  id = "duration"
+                  id="duration"
                   fullWidth
                   label="Durasi"
                   name="duration"

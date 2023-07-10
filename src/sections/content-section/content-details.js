@@ -39,16 +39,26 @@ export const AccountProfileDetails = () => {
   }, []);
 
   return (
-    <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+    <form autoComplete="off"
+      noValidate
+      onSubmit={handleSubmit}>
       <Card>
-        <CardHeader subheader="The information can be edited" title="Content Details" />
+        <CardHeader subheader="The information can be edited"
+          title="Content Details" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
-            <Grid container spacing={3}>
-              <Grid xs={12} md={6}>
-                <TextField fullWidth label="Judul" name="title" onChange={handleChange} required />
+            <Grid container
+              spacing={3}>
+              <Grid xs={12}
+                md={6}>
+                <TextField fullWidth
+                  label="Judul"
+                  name="title"
+                  onChange={handleChange}
+                  required />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid xs={12}
+                md={6}>
                 <TextField
                   fullWidth
                   label="Pilih Tipe"
@@ -59,13 +69,16 @@ export const AccountProfileDetails = () => {
                   SelectProps={{ native: true }}
                 >
                   {type.map((option) => (
-                    <option key={option.value} value={option.value}>
+                    <option key={option.value}
+                      value={option.value}>
                       {option.label}
                     </option>
                   ))}
                 </TextField>
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid
+                xs={12}
+                md={6}>
                 <TextField
                   fullWidth
                   label="Direksi"
@@ -77,7 +90,9 @@ export const AccountProfileDetails = () => {
                 />
               </Grid>
 
-              <Grid xs={12} md={6}>
+              <Grid
+                xs={12}
+                md={6}>
                 <TextField
                   fullWidth
                   label="Pemeran"
@@ -88,7 +103,9 @@ export const AccountProfileDetails = () => {
                   helperText="Tambahkan koma jika ingin menambahkan pemeran lebih dari satu"
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid
+                xs={12}
+                md={6}>
                 <TextField
                   fullWidth
                   label="Thumbnail"
@@ -98,7 +115,9 @@ export const AccountProfileDetails = () => {
                   helperText="Masukkan URL Gambar"
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid
+                xs={12}
+                md={6}>
                 <TextField
                   fullWidth
                   label="Poster"
@@ -108,7 +127,9 @@ export const AccountProfileDetails = () => {
                   helperText="Masukkan URL Gambar"
                 />
               </Grid>
-              <Grid xs={12} md={12}>
+              <Grid
+                xs={12}
+                md={12}>
                 <TextField
                   fullWidth
                   multiline

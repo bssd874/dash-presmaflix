@@ -226,9 +226,12 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
                 <TextField
                   id="description"
                   fullWidth
+                  multiline
                   label="Deskripsi"
                   name="description"
                   value={description}
+                  rows={5}
+                  maxRows={10}  
                   onChange={e => setDescription(e.target.value)}
                   required
                   type="textarea"

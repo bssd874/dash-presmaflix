@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import {
   Box,
   Button,
@@ -9,7 +8,9 @@ import {
   Divider,
   TextField,
   Unstable_Grid2 as Grid,
+  TextareaAutosize,
 } from "@mui/material";
+import Textarea  from "@mui/joy/Textarea";
 import { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "src/config/firestore";
@@ -118,9 +119,31 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
               <Grid xs={12}
                 md={6}>
                 <TextField
-                  id={"contentId" && "title"}
+                  id="title"
                   fullWidth
                   label="Pilih Konten"
+                  name="contentId && title"
+                  //value={contentId && title}
+                  onChange={e => setContentId(e.target.value)}
+                  required
+                  select
+                  helperText="Pastikan nama konten telah tersedia"
+                  SelectProps={{ native: false }}
+                >
+                  {Konten.map((content) => (
+                    <option key={content.id}
+                      value={content.id}>
+                      {content.id} - {content.title}
+                    </option>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid xs={12}
+                md={6}>
+                <TextField
+                  id="title"
+                  fullWidth
+                  label="Pilih Judul"
                   name="contentId && title"
                   //value={contentId && title}
                   onChange={e => setTitle(e.target.value)}
@@ -132,7 +155,7 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
                   {Konten.map((content) => (
                     <option key={content.id}
                       value={content.title}>
-                      {content.title}
+                      {content.title} - {content.id}
                     </option>
                   ))}
                 </TextField>
@@ -184,6 +207,31 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
                   value={duration}
                   onChange={e => setDuration(e.target.value)}
                   required
+                />
+              </Grid>
+              <Grid xs={12} md={6}>
+                {/* <Textarea 
+                  minRows={2} 
+                  size="lg" 
+                  variant="outlined"
+                  id="description"
+                  fullWidth
+                  label="Deskripsi"
+                  name="description"
+                  value={description}
+                  onChange={e => setDescription(e.targer.value)}
+                  required
+                    
+                /> */}
+                <TextField
+                  id="description"
+                  fullWidth
+                  label="Deskripsi"
+                  name="description"
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                  required
+                  type="textarea"
                 />
               </Grid>
             </Grid>

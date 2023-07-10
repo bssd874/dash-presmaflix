@@ -172,7 +172,6 @@ export const AccountProfileDetails = ({data,setData,getData}) => {
                 <TextField
                   id = "duration"
                   fullWidth
-                  multiline
                   label="Durasi"
                   name="duration"
                   value={duration}

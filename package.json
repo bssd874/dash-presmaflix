@@ -24,6 +24,7 @@
     "@mui/x-date-pickers": "5.0.19",
     "apexcharts": "3.37.0",
     "date-fns": "2.29.3",
+    "firebase": "^10.0.0",
     "formik": "2.2.9",
     "next": "13.1.6",
     "nprogress": "0.2.0",
@@ -41,6 +42,6 @@
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "eslint": "8.34.0",
-    "eslint-config-next": "13.1.6"
+    "eslint-config-next": "^12.0.4"
   }
 }

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from "@mui/material";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
-import { AccountProfileDetails } from "src/sections/content-section/content-details";
+import { ContentSection } from "src/sections/content-section/content-section";
 
 const Page = () => (
   <>
@@ -33,7 +33,7 @@ const Page = () => (
               <Grid xs={12}
                 md={12}
                 lg={12}>
-                <AccountProfileDetails />
+                <ContentSection />
               </Grid>
             </Grid>
           </div>

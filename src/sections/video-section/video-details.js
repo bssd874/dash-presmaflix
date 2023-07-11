@@ -8,9 +8,9 @@ import {
   Divider,
   TextField,
   Unstable_Grid2 as Grid,
-  TextareaAutosize,
+  // TextareaAutosize,
 } from "@mui/material";
-import Textarea  from "@mui/joy/Textarea";
+// import Textarea from "@mui/joy/Textarea";
 import { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "src/config/firestore";
@@ -69,8 +69,6 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
       "videoUrl": videoUrl
     }
 
-    //data.push(newData);
-
     try {
       await addDoc(videosCollectionRef, {
         ...newData,
@@ -80,19 +78,6 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
       console.log(err);
     }
 
-
-    //setData(data);
-    //getData()
-
-    /* e.preventDefault();
-    try {
-      await addDoc(videosCollectionRef, {
-        ...data && {data:selected},
-        timeStamp: serverTimestamp(),
-      });
-    } catch (err) {
-      console.log(err);
-    } */
   };
 
   useEffect(() => {
@@ -102,8 +87,7 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
       setContents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     }
     getContents();
-
-  }, [])
+  }, [contentsCollectionRef])
 
   return (
     <form autoComplete="off"
@@ -119,21 +103,20 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
               <Grid xs={12}
                 md={6}>
                 <TextField
-                  id="title"
                   fullWidth
                   label="Pilih Konten"
-                  name="contentId && title"
-                  //value={contentId && title}
+                  // value={contentId && title}
+                  name="contentId"
                   onChange={e => setContentId(e.target.value)}
                   required
                   select
-                  helperText="Pastikan nama konten telah tersedia"
                   SelectProps={{ native: false }}
+                  helperText="Pastikan nama konten telah tersedia"
                 >
-                  {Konten.map((content) => (
-                    <option key={content.id}
+                  {Konten.map((content, index) => (
+                    <option key={index}
                       value={content.id}>
-                      {content.id} - {content.title}
+                      {content.title}
                     </option>
                   ))}
                 </TextField>
@@ -143,22 +126,12 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
                 <TextField
                   id="title"
                   fullWidth
-                  label="Pilih Judul"
-                  name="contentId && title"
-                  //value={contentId && title}
+                  label="Judul"
+                  name="title"
+                  value={title}
                   onChange={e => setTitle(e.target.value)}
                   required
-                  select
-                  helperText="Pastikan nama konten telah tersedia"
-                  SelectProps={{ native: false }}
-                >
-                  {Konten.map((content) => (
-                    <option key={content.id}
-                      value={content.title}>
-                      {content.title} - {content.id}
-                    </option>
-                  ))}
-                </TextField>
+                />
               </Grid>
               <Grid xs={12}
                 md={6}>
@@ -173,7 +146,8 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
                   required
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid xs={12}
+                md={6}>
                 <TextField
                   id="thumbnailUrl"
                   fullWidth
@@ -185,7 +159,8 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
                   helperText="Masukkan URL gambar untuk thumbnail video"
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid xs={12}
+                md={6}>
                 <TextField
                   id="videoUrl"
                   fullWidth
@@ -198,7 +173,8 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
                 />
               </Grid>
 
-              <Grid xs={12} md={6}>
+              <Grid xs={12}
+                md={6}>
                 <TextField
                   id="duration"
                   fullWidth
@@ -209,7 +185,8 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
                   required
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid xs={12}
+                md={6}>
                 {/* <Textarea 
                   minRows={2} 
                   size="lg" 
@@ -231,7 +208,7 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
                   name="description"
                   value={description}
                   rows={5}
-                  maxRows={10}  
+                  maxRows={10}
                   onChange={e => setDescription(e.target.value)}
                   required
                   type="textarea"
@@ -242,7 +219,8 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: "flex-end" }}>
-          <Button variant="contained" type="submit">Save</Button>
+          <Button variant="contained"
+            type="submit">Save</Button>
         </CardActions>
       </Card>
     </form>

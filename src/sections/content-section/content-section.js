@@ -10,7 +10,7 @@ import {
   TextField,
   Unstable_Grid2 as Grid,
 } from "@mui/material";
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc,serverTimestamp } from "firebase/firestore";
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "src/config/firestore";
 
 const tipe = [
@@ -30,17 +30,16 @@ const tipe = [
 
 const isFeatured = [
   {
-    value: "true",
-    label: "True",
-  },
-  {
     value: "false",
     label: "False",
   },
-  
+  {
+    value: "true",
+    label: "True",
+  },
 ];
 
-export const AccountProfileDetails = () => {
+export const ContentSection = () => {
 
   const contentsCollectionRef = collection(db, "contents");
 
@@ -50,14 +49,14 @@ export const AccountProfileDetails = () => {
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [title, setTitle] = useState('');
   const [posterUrl, setPosterUrl] = useState('');
-  const [type, setType] = useState('');
-  const [description,setDescription] = useState('');
-  const [selectedValue, setSelectedValue] = useState('');
+  const [type, setType] = useState('Movie');
+  const [description, setDescription] = useState('');
+  const [selectedValue, setSelectedValue] = useState('false');
 
   function convertStringToArray(str) {
     // Menghapus spasi ekstra dan memisahkan string berdasarkan koma
-    const array = str.replace(/\s+/g, '').split(',');
-  
+    const array = str.split(',');
+
     return array;
   }
 
@@ -76,16 +75,16 @@ export const AccountProfileDetails = () => {
     const arraySaveGenre = convertStringToArray(genre)
 
     const newData = {
-      "casts" : arraySaveCast ,
-      "createdAt" : serverTimestamp(),
-      "description" : description,
-      "directors" : arraySaveDirector,
-      "genre" : arraySaveGenre ,
-      "isFeatured" : selectedValue === 'true',
-      "posterUrl" : posterUrl,
-      "thumbnailUrl" :thumbnailUrl,
-      "title" : title,
-      "type" : type
+      "casts": arraySaveCast,
+      "createdAt": serverTimestamp(),
+      "description": description,
+      "directors": arraySaveDirector,
+      "genre": arraySaveGenre,
+      "isFeatured": selectedValue === 'true',
+      "posterUrl": posterUrl,
+      "thumbnailUrl": thumbnailUrl,
+      "title": title,
+      "type": type
     }
 
     try {
@@ -96,6 +95,15 @@ export const AccountProfileDetails = () => {
       console.log(err);
     }
 
+    setCast('')
+    setDirectors('')
+    setGenre('')
+    setThumbnailUrl('')
+    setTitle('')
+    setPosterUrl('')
+    setType('Movie')
+    setDescription('')
+    setSelectedValue('false')
 
   };
 
@@ -115,6 +123,7 @@ export const AccountProfileDetails = () => {
                 <TextField fullWidth
                   label="Judul"
                   name="title"
+                  value={title}
                   onChange={e => setTitle(e.target.value)}
                   required />
               </Grid>
@@ -125,6 +134,7 @@ export const AccountProfileDetails = () => {
                   label="Pilih Tipe"
                   name="type"
                   onChange={e => setType(e.target.value)}
+                  value={type}
                   required
                   select
                   SelectProps={{ native: true }}
@@ -144,6 +154,7 @@ export const AccountProfileDetails = () => {
                   fullWidth
                   label="Direksi"
                   name="direksi"
+                  value={directors}
                   onChange={e => setDirectors(e.target.value)}
                   required
                   placeholder="Joko Anwar, Teddy Soeriaatmadja, Eddie Cahyono"
@@ -158,6 +169,7 @@ export const AccountProfileDetails = () => {
                   fullWidth
                   label="Genre"
                   name="genre"
+                  value={genre}
                   onChange={e => setGenre(e.target.value)}
                   required
                   placeholder="Horor, Action, Comedy"
@@ -173,6 +185,7 @@ export const AccountProfileDetails = () => {
                   label="Pemeran"
                   name="cast"
                   required
+                  value={casts}
                   onChange={e => setCast(e.target.value)}
                   placeholder="Tom Hanks, Reza Rahadian"
                   helperText="Tambahkan koma jika ingin menambahkan pemeran lebih dari satu"
@@ -185,6 +198,7 @@ export const AccountProfileDetails = () => {
                   fullWidth
                   label="Thumbnail"
                   name="thumnailUrl"
+                  value={thumbnailUrl}
                   onChange={e => setThumbnailUrl(e.target.value)}
                   required
                   helperText="Masukkan URL Gambar"
@@ -197,6 +211,7 @@ export const AccountProfileDetails = () => {
                   fullWidth
                   label="Poster"
                   name="posterUrl"
+                  value={posterUrl}
                   onChange={e => setPosterUrl(e.target.value)}
                   required
                   helperText="Masukkan URL Gambar"
@@ -210,7 +225,8 @@ export const AccountProfileDetails = () => {
                   multiline
                   label="Deskripsi"
                   name="description"
-                  onChange={e=>setDescription(e.target.value)}
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
                   required
                 />
               </Grid>
@@ -222,6 +238,7 @@ export const AccountProfileDetails = () => {
                   name="type"
                   onChange={e => setSelectedValue(e.target.value)}
                   required
+                  value={selectedValue}
                   select
                   SelectProps={{ native: true }}
                 >
@@ -238,7 +255,10 @@ export const AccountProfileDetails = () => {
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: "flex-end" }}>
-          <Button variant="contained" type="submit">Save</Button>
+          <Button
+            variant="contained"
+            type="submit"
+          >Save</Button>
         </CardActions>
       </Card>
     </form>

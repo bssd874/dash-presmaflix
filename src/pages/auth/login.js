@@ -77,17 +77,23 @@ const Page = () => {
           }}
         >
           <div>
-            <Stack spacing={1} sx={{ mb: 3 }}>
+            <Stack spacing={1}
+              sx={{ mb: 3 }}>
               <Typography variant="h4">Login</Typography>
-              <Typography color="text.secondary" variant="body2">
+              <Typography color="text.secondary"
+                variant="body2">
                 Welcome to the Presmaflix Operations Base!
               </Typography>
             </Stack>
-            <Tabs onChange={handleMethodChange} sx={{ mb: 3 }} value={method}>
-              <Tab label="Email" value="email" />
+            <Tabs onChange={handleMethodChange}
+              sx={{ mb: 3 }}
+              value={method}>
+              <Tab label="Email"
+                value="email" />
             </Tabs>
             {method === "email" && (
-              <form noValidate onSubmit={formik.handleSubmit}>
+              <form noValidate
+                onSubmit={formik.handleSubmit}>
                 <Stack spacing={3}>
                   <TextField
                     error={!!(formik.touched.email && formik.errors.email)}
@@ -111,24 +117,33 @@ const Page = () => {
                     type="password"
                     value={formik.values.password}
                   />
-                  <Typography color="text.secondary" variant="body2">
+                  <Typography
+                    color="text.secondary"
+                    variant="body2">
                     By logging into this admin dashboard, you become the hero who oversees the movie
                     universe.
                   </Typography>
                 </Stack>
                 {formik.errors.submit && (
-                  <Typography color="error" sx={{ mt: 3 }} variant="body2">
+                  <Typography color="error"
+                    sx={{ mt: 3 }}
+                    variant="body2">
                     {formik.errors.submit}
                   </Typography>
                 )}
-                <Button fullWidth size="large" sx={{ mt: 3 }} type="submit" variant="contained">
+                <Button fullWidth
+                  size="large"
+                  sx={{ mt: 3 }}
+                  type="submit"
+                  variant="contained">
                   Continue
                 </Button>
               </form>
             )}
             {method === "phoneNumber" && (
               <div>
-                <Typography sx={{ mb: 1 }} variant="h6">
+                <Typography sx={{ mb: 1 }}
+                  variant="h6">
                   Not available in the demo
                 </Typography>
                 <Typography color="text.secondary">

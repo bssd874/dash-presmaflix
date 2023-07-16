@@ -8,6 +8,7 @@ import {
   Divider,
   TextField,
   Unstable_Grid2 as Grid,
+  Select
   // TextareaAutosize,
 } from "@mui/material";
 // import Textarea from "@mui/joy/Textarea";
@@ -40,7 +41,7 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
   const contentsCollectionRef = collection(db, "contents");
   const videosCollectionRef = collection(db, "videos");
 
-  const [contentId, setContentId] = useState('');
+  const [contentId, setContentId] = useState('Konten.id');
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
@@ -78,16 +79,24 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
       console.log(err);
     }
 
+    setContentId(Konten.id);
+    setDescription('');
+    setDuration('');
+    setThumbnailUrl('');
+    setTitle('');
+    setType('');
+    setVideoUrl('');
+
+
   };
 
   useEffect(() => {
-
     const getContents = async () => {
       const data = await getDocs(contentsCollectionRef);
       setContents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     }
     getContents();
-  }, [contentsCollectionRef])
+  }, [])
 
   return (
     <form autoComplete="off"
@@ -105,21 +114,31 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
                 <TextField
                   fullWidth
                   label="Pilih Konten"
-                  // value={contentId && title}
                   name="contentId"
                   onChange={e => setContentId(e.target.value)}
+                  value={contentId}
+                  helperText="Pastikan nama konten telah tersedia"
                   required
                   select
-                  SelectProps={{ native: false }}
-                  helperText="Pastikan nama konten telah tersedia"
+                  SelectProps={{ native: true }}
                 >
-                  {Konten.map((content, index) => (
+                  {Konten.map((content,index) => (
                     <option key={index}
                       value={content.id}>
                       {content.title}
                     </option>
                   ))}
                 </TextField>
+                {/* <select>
+                  {Konten
+                    ? Konten.map((content) => (
+                    <option key={content.id}
+                      value={content.id}>
+                      {content.title}
+                    </option>
+                  )) : null}
+                </select> */}
+
               </Grid>
               <Grid xs={12}
                 md={6}>

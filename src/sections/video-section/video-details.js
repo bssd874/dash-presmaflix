@@ -110,11 +110,11 @@ export const AccountProfileDetails = ({ data, setData, getData }) => {
                   onChange={e => setContentId(e.target.value)}
                   required
                   select
-                  SelectProps={{ native: false }}
+                  SelectProps={{ native: true }}
                   helperText="Pastikan nama konten telah tersedia"
                 >
-                  {Konten.map((content, index) => (
-                    <option key={index}
+                  {Konten.map((content) => (
+                    <option key={content.id}
                       value={content.id}>
                       {content.title}
                     </option>

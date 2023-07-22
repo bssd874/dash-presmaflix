@@ -50,7 +50,7 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
   const [type, setType] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
   const [Konten, setContents] = useState([]);
-  const [errors,setError] = useState({});
+  const [errors, setError] = useState({});
 
   const [contentIdError, setContentIdError] = useState('');
   const [descriptionError, setDescriptionError] = useState('');
@@ -59,6 +59,7 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
   const [titleError, setTitleError] = useState('');
   const [typeError, setTypeError] = useState('');
   const [videoUrlError, setVideoUrlError] = useState('');
+  let hasError = false;
 
   const handleChange = (e) => {
     /* const id = e.target.id;
@@ -81,54 +82,59 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
       "videoUrl": videoUrl
     }
 
-    
+
 
     if (!newData.contentId || !newData.contentId.length) {
       setContentIdError("Content field is required")
-      return false
-    } else{
+      hasError = true
+    } else {
       setContentIdError("")
     }
     if (!newData.description || !newData.description.length) {
       setDescriptionError("Description is required")
-      return false
-    } else{
+      hasError = true
+    } else {
       setDescriptionError("")
     }
     if (!newData.duration || !newData.duration.length) {
       setDurationError("Duration is required")
-      return false
-    } else{
+      hasError = true
+    } else {
       setDurationError("")
     }
     if (!newData.thumbnailUrl == "https://" || !newData.thumbnailUrl.length) {
       setThumbnailUrlError("Thumbnail Url must have https://")
-      return  false
-    } else{
+      hasError = true
+    } else {
       setThumbnailUrlError("")
     }
     if (!newData.title || !newData.title.length) {
       setTitleError("Title is required")
-      return  false
-    } else{
+      hasError = true
+    } else {
       setTitleError("")
     }
     if (!newData.type == "full-length" || !newData.type.length) {
       setTypeError("Type must be filled by full-length")
-      return  false
-    } else{
+      hasError = true
+
+    } else {
       setTypeError("")
     }
     if (!newData.videoUrl == "https://" || !newData.videoUrl.length) {
       setVideoUrlError("Video Url must have https://")
-      return  false
-    }else{
+      hasError = true
+    } else {
       setVideoUrlError("")
+    }
+
+    if (hasError) {
+      return false
     }
 
     try {
       await addDoc(videosCollectionRef, {
-        ...newData,  
+        ...newData,
       });
     } catch (err) {
       console.log(err);
@@ -171,15 +177,14 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
                   name="contentId"
                   onChange={e => setContentId(e.target.value)}
                   value={contentId}
-                  error = {contentIdError && contentIdError.length ? true:false}
-                  helperText= {contentIdError}
-                  required = {true}
+                  error={contentIdError && contentIdError.length ? true : false}
+                  helperText={contentIdError ?? 'Pastikan nama konten telah tersedia'}
+                  required={true}
                   select
                   SelectProps={{ native: false }}
-                  helperText="Pastikan nama konten telah tersedia"
                 >
                   {Konten.map((content, index) => (
-                    <option key={index}
+                    <MenuItem key={index}
                       value={content.id}>
                       {content.title}
                     </MenuItem>
@@ -205,9 +210,9 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
                   name="title"
                   value={title}
                   onChange={e => setTitle(e.target.value)}
-                  error = { titleError && titleError.length ? true : false}
-                  helperText = { titleError}
-                  required = {true}
+                  error={titleError && titleError.length ? true : false}
+                  helperText={titleError}
+                  required={true}
                 />
               </Grid>
               <Grid xs={12}
@@ -219,9 +224,9 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
                   name="typeVide"
                   value={type}
                   onChange={e => setType(e.target.value)}
-                  error = { typeError && typeError.length ? true : false}
-                  helperText={ typeError}
-                  required = {true}
+                  error={typeError && typeError.length ? true : false}
+                  helperText={typeError}
+                  required={true}
                 />
               </Grid>
               <Grid xs={12}
@@ -233,8 +238,8 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
                   name="videoThumbnail"
                   value={thumbnailUrl}
                   onChange={e => setThumbnailUrl(e.target.value)}
-                  error = {thumbnailUrlError && thumbnailUrlError.length ? true : false}
-                  helperText= { thumbnailUrlError}
+                  error={thumbnailUrlError && thumbnailUrlError.length ? true : false}
+                  helperText={thumbnailUrlError}
                   required={true}
                 />
               </Grid>
@@ -247,8 +252,8 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
                   name="videoUrl"
                   value={videoUrl}
                   onChange={e => setVideoUrl(e.target.value)}
-                  error = { videoUrlError && videoUrlError.length ? true : false}
-                  helperText={ videoUrlError}
+                  error={videoUrlError && videoUrlError.length ? true : false}
+                  helperText={videoUrlError}
                   required={true}
                 />
               </Grid>
@@ -262,8 +267,8 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
                   name="duration"
                   value={duration}
                   onChange={e => setDuration(e.target.value)}
-                  error = { durationError && durationError.length ? true : false}
-                  helperText = { durationError}
+                  error={durationError && durationError.length ? true : false}
+                  helperText={durationError}
                   required={true}
                 />
               </Grid>
@@ -292,8 +297,8 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
                   rows={5}
                   maxRows={10}
                   onChange={e => setDescription(e.target.value)}
-                  error = {descriptionError && descriptionError.length ? true : false}
-                  helperText ={ descriptionError}
+                  error={descriptionError && descriptionError.length ? true : false}
+                  helperText={descriptionError}
                   required={true}
                   type="textarea"
                 />
@@ -304,7 +309,9 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
         <Divider />
         <CardActions sx={{ justifyContent: "flex-end" }}>
           <Button variant="contained"
-            type="submit" >Save</Button>
+            type="submit" >
+            Save
+          </Button>
         </CardActions>
       </Card>
     </form>

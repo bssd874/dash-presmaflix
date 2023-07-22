@@ -176,10 +176,9 @@ export const AccountProfileDetails = ({ data, setData, getData, setAddingIs }) =
                   required = {true}
                   select
                   SelectProps={{ native: false }}
-                  helperText="Pastikan nama konten telah tersedia"
                 >
                   {Konten.map((content, index) => (
-                    <option key={index}
+                    <MenuItem key={index}
                       value={content.id}>
                       {content.title}
                     </MenuItem>

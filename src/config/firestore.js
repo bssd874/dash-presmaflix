@@ -6,14 +6,13 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDT3Xj7kuEg0XXijChF_7pIFG8eGIg3-48",
-  authDomain: "presmaflix-784d1.firebaseapp.com",
-  databaseURL: "https://presmaflix-784d1-default-rtdb.firebaseio.com",
-  projectId: "presmaflix-784d1",
-  storageBucket: "presmaflix-784d1.appspot.com",
-  messagingSenderId: "1051978975179",
-  appId: "1:1051978975179:web:9db58debfa4cb7906b584e",
-  measurementId: "G-ZCQ5QRJC74"
+  apiKey: "AIzaSyC3xPI1yp8szj_CIkFy9QYKqUWU6dhGH7U",
+  authDomain: "presmaflix.firebaseapp.com",
+  databaseUrl: "https://presmaflix-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "presmaflix",
+  storageBucket: "presmaflix.appspot.com",
+  messagingSenderId: "923273589990",
+  appId: "1:923273589990:web:055a36de7bf8d785b33727"
 };
 
 // Initialize Firebase

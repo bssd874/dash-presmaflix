@@ -9,6 +9,7 @@ import {
   Divider,
   TextField,
   Unstable_Grid2 as Grid,
+  MenuItem,
 } from "@mui/material";
 import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "src/config/firestore";
@@ -49,16 +50,27 @@ export const ContentSection = () => {
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [title, setTitle] = useState('');
   const [posterUrl, setPosterUrl] = useState('');
-  const [type, setType] = useState('Movie');
+  const [type, setType] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedValue, setSelectedValue] = useState('false');
+  const [selectedValue, setSelectedValue] = useState('');
 
-  function convertStringToArray(str) {
-    // Menghapus spasi ekstra dan memisahkan string berdasarkan koma
+  const [castsError, setCastError] = useState('');
+  const [directorsError, setDirectorsError] = useState('');
+  const [genreError, setGenreError] = useState('');
+  const [thumbnailUrlError, setThumbnailUrlError] = useState('');
+  const [titleError, setTitleError] = useState('');
+  const [posterUrlError, setPosterUrlError] = useState('');
+  const [typeError, setTypeError] = useState('');
+  const [descriptionError, setDescriptionError] = useState('');
+  const [selectedValueError, setSelectedValueError] = useState('');
+  let hashError = false;
+
+  /* function convertStringToArray(str) {
+    Menghapus spasi ekstra dan memisahkan string berdasarkan koma
     const array = str.split(',');
 
     return array;
-  }
+  } */
 
   const handleChange = (event) => {
     setValues((prevState) => ({
@@ -70,21 +82,85 @@ export const ContentSection = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const arraySaveCast = convertStringToArray(casts);
-    const arraySaveDirector = convertStringToArray(directors);
-    const arraySaveGenre = convertStringToArray(genre)
+    const arraySaveCast = casts.trim()
+    const arraySaveDirector = directors.trim()
+    const arraySaveGenre = genre.trim()
+
+    const arrayDataCast = arraySaveCast.split(',')
+    const arrayDataDirector = arraySaveDirector.split(',')
+    const arrayDataGenre = arraySaveGenre.split(',')
+    
 
     const newData = {
-      "casts": arraySaveCast,
+      "casts": arrayDataCast,
       "createdAt": serverTimestamp(),
       "description": description,
-      "directors": arraySaveDirector,
-      "genre": arraySaveGenre,
-      "isFeatured": selectedValue === 'true',
+      "directors": arrayDataDirector,
+      "genre": arrayDataGenre,
+      "isFeatured": selectedValue,
       "posterUrl": posterUrl,
       "thumbnailUrl": thumbnailUrl,
       "title": title,
       "type": type
+    }
+
+    if (!arraySaveCast || !arraySaveCast.length || !arrayDataCast || !arrayDataCast.length) {
+      setCastError("Cast field is required")
+      hashError = true
+    }else{
+      setCastError("")
+    }
+    if (!newData.description || !newData.description.length) {
+      setDescriptionError("Description field is requied")
+      hashError = true
+    }else{
+      setDescriptionError("")
+    }
+    if (!arraySaveDirector || !arraySaveDirector.length || !arrayDataDirector || !arrayDataDirector.length ) {
+      setDirectorsError("Directors field is reqiured")
+      hashError = true
+    }else{
+      setDirectorsError("")
+    }
+    if (!newData.isFeatured || !newData.isFeatured.length) {
+      setSelectedValueError("Is Featured field is required ")
+      hashError = true
+    }else{
+      setSelectedValueError("")
+    }
+    if (!newData.posterUrl || !newData.posterUrl.length || !newData.posterUrl == "https://") {
+      setPosterUrlError("Poster Url field is required")
+      hashError = true
+    }else{
+      setPosterUrlError("")
+    }
+    if (!newData.thumbnailUrl || !newData.thumbnailUrl.length || !newData.thumbnailUrl == "https://") {
+      setThumbnailUrlError("Thumbnail Url field is required")
+      hashError = true
+    }else{
+      setThumbnailUrlError("")
+    }
+    if (!newData.title || !newData.title.length) {
+      setTitleError("Title field is requred")
+      hashError = true
+    }else{
+      setTitleError("")
+    }
+    if (!newData.type || !newData.type.length) {
+      setTypeError("Type field is required")
+      hashError = true
+    }else{
+      setTypeError("")
+    }
+    if (!arraySaveGenre || !arraySaveGenre.length || !arrayDataGenre || !arrayDataGenre.length) {
+      setGenreError("Genre field is required")
+      hashError = true
+    }else{
+      setGenreError("")
+    }
+
+    if (hashError) {
+      return false
     }
 
     try {
@@ -101,9 +177,9 @@ export const ContentSection = () => {
     setThumbnailUrl('')
     setTitle('')
     setPosterUrl('')
-    setType('Movie')
+    setType('')
     setDescription('')
-    setSelectedValue('false')
+    setSelectedValue('')
 
   };
 
@@ -125,6 +201,8 @@ export const ContentSection = () => {
                   name="title"
                   value={title}
                   onChange={e => setTitle(e.target.value)}
+                  error = {titleError && titleError.length ? true:false}
+                  helperText = {titleError}
                   required />
               </Grid>
               <Grid xs={12}
@@ -135,15 +213,17 @@ export const ContentSection = () => {
                   name="type"
                   onChange={e => setType(e.target.value)}
                   value={type}
+                  error = {typeError && typeError.length ? true:false}
+                  helperText = {typeError}
                   required
                   select
-                  SelectProps={{ native: true }}
+                  //SelectProps={{ native: true }}
                 >
                   {tipe.map((option) => (
-                    <option key={option.value}
+                    <MenuItem key={option.value}
                       value={option.value}>
                       {option.label}
-                    </option>
+                    </MenuItem>
                   ))}
                 </TextField>
               </Grid>
@@ -156,10 +236,12 @@ export const ContentSection = () => {
                   name="direksi"
                   value={directors}
                   onChange={e => setDirectors(e.target.value)}
+                  error = {!!directorsError && directorsError.length ? true:false}
+                  helperText="Tambahkan koma jika ingin menambahkan direksi lebih dari satu"
                   required
                   placeholder="Joko Anwar, Teddy Soeriaatmadja, Eddie Cahyono"
-                  helperText="Tambahkan koma jika ingin menambahkan direksi lebih dari satu"
                 />
+                {directorsError && <p style = {{color:'red'}}>{directorsError}</p>}
               </Grid>
 
               <Grid
@@ -171,10 +253,12 @@ export const ContentSection = () => {
                   name="genre"
                   value={genre}
                   onChange={e => setGenre(e.target.value)}
+                  error = {genreError && genreError.length ? true:false}
+                  helperText="Tambahkan koma jika ingin menambahkan direksi lebih dari satu"
                   required
                   placeholder="Horor, Action, Comedy"
-                  helperText="Tambahkan koma jika ingin menambahkan direksi lebih dari satu"
                 />
+                {genreError && <p style = {{color:'red'}}>{genreError}</p>}
               </Grid>
 
               <Grid
@@ -184,12 +268,14 @@ export const ContentSection = () => {
                   fullWidth
                   label="Pemeran"
                   name="cast"
-                  required
                   value={casts}
                   onChange={e => setCast(e.target.value)}
-                  placeholder="Tom Hanks, Reza Rahadian"
+                  error = {castsError && castsError.length ? true:false}
                   helperText="Tambahkan koma jika ingin menambahkan pemeran lebih dari satu"
+                  required
+                  placeholder="Tom Hanks, Reza Rahadian"
                 />
+                {castsError && <p style = {{color:'red'}}>{castsError}</p>}
               </Grid>
               <Grid
                 xs={12}
@@ -200,8 +286,9 @@ export const ContentSection = () => {
                   name="thumnailUrl"
                   value={thumbnailUrl}
                   onChange={e => setThumbnailUrl(e.target.value)}
+                  error = {thumbnailUrlError && thumbnailUrlError.length ? true:false}
+                  helperText={"Masukkan URL Gambar" && thumbnailUrlError}
                   required
-                  helperText="Masukkan URL Gambar"
                 />
               </Grid>
               <Grid
@@ -213,8 +300,9 @@ export const ContentSection = () => {
                   name="posterUrl"
                   value={posterUrl}
                   onChange={e => setPosterUrl(e.target.value)}
+                  error = {posterUrlError && posterUrlError.length ? true:false}
+                  helperText={"Masukkan URL Gambar" && posterUrlError}
                   required
-                  helperText="Masukkan URL Gambar"
                 />
               </Grid>
               <Grid
@@ -227,6 +315,8 @@ export const ContentSection = () => {
                   name="description"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
+                  error = {descriptionError && descriptionError.length ? true:false}
+                  helperText {...descriptionError}
                   required
                 />
               </Grid>
@@ -234,19 +324,21 @@ export const ContentSection = () => {
                 md={12}>
                 <TextField
                   fullWidth
-                  label="Pilih Tipe"
+                  label="Is Featured"
                   name="type"
                   onChange={e => setSelectedValue(e.target.value)}
+                  error = {selectedValueError && selectedValueError.length ? true:false}
+                  helperText = {selectedValueError}
                   required
                   value={selectedValue}
                   select
-                  SelectProps={{ native: true }}
+                  //SelectProps={{ native: true }}
                 >
                   {isFeatured.map((opt) => (
-                    <option key={opt.value}
+                    <MenuItem key={opt.label}
                       value={opt.value}>
                       {opt.label}
-                    </option>
+                    </MenuItem>
                   ))}
                 </TextField>
               </Grid>

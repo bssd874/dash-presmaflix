@@ -29,13 +29,13 @@ const tipe = [
   },
 ];
 
-const isFeatured = [
+const booleanValue = [
   {
-    value: "false",
+    value: false,
     label: "False",
   },
   {
-    value: "true",
+    value: true,
     label: "True",
   },
 ];
@@ -97,7 +97,7 @@ export const ContentSection = () => {
       "description": description,
       "directors": arrayDataDirector,
       "genre": arrayDataGenre,
-      "isFeatured": selectedValue,
+      "isFeatured": Boolean(selectedValue),
       "posterUrl": posterUrl,
       "thumbnailUrl": thumbnailUrl,
       "title": title,
@@ -122,7 +122,7 @@ export const ContentSection = () => {
     }else{
       setDirectorsError("")
     }
-    if (!newData.isFeatured || !newData.isFeatured.length) {
+    if (!newData.isFeatured) {
       setSelectedValueError("Is Featured field is required ")
       hashError = true
     }else{
@@ -164,6 +164,7 @@ export const ContentSection = () => {
     }
 
     try {
+      console.log(newData)
       await addDoc(contentsCollectionRef, {
         ...newData,
       });
@@ -316,7 +317,7 @@ export const ContentSection = () => {
                   value={description}
                   onChange={e => setDescription(e.target.value)}
                   error = {descriptionError && descriptionError.length ? true:false}
-                  helperText {...descriptionError}
+                  helperText = {descriptionError}
                   required
                 />
               </Grid>
@@ -334,7 +335,7 @@ export const ContentSection = () => {
                   select
                   //SelectProps={{ native: true }}
                 >
-                  {isFeatured.map((opt) => (
+                  {booleanValue.map((opt) => (
                     <MenuItem key={opt.label}
                       value={opt.value}>
                       {opt.label}
